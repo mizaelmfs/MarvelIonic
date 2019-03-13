@@ -1,5 +1,7 @@
 {
   "name": "marvel",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
