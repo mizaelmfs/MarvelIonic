@@ -1,3 +1,4 @@
+import { ListComponent } from 'src/app/components/list/list.component';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -12,6 +13,6 @@ import { MoviesPage } from './movies.page';
     FormsModule,
     RouterModule.forChild([{ path: '', component: MoviesPage }])
   ],
-  declarations: [MoviesPage]
+  declarations: [MoviesPage, ListComponent]
 })
 export class MoviesPageModule {}

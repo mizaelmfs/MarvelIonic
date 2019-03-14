@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  API: 'http://gateway.marvel.com'
+  API: 'http://gateway.marvel.com/v1/public/'
 };
 
 /*
