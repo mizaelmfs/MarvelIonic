@@ -1,9 +1,15 @@
+<ion-row *ngIf="loading" class="loading">
+  <ion-col text-center>
+    <img src="../../../assets/marvel.gif">
+  </ion-col>
+</ion-row>
+
 <ion-list>
-  <ion-item *ngFor="let item of results">
+  <ion-item (click)="onGoToDetails(item.id)" *ngFor="let item of results">
     <ion-thumbnail slot="start">
       <img src="{{item.thumbnail.path}}.{{item.thumbnail.extension}}">
     </ion-thumbnail>
-    <ion-label>{{item.title}}</ion-label>
+    <ion-label>{{item.title}}{{item.name}}</ion-label>
   </ion-item>
 </ion-list>
 <ion-infinite-scroll (ionInfinite)="loadData($event)">

@@ -9,23 +9,24 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { MoviesService } from './providers/movies.service';
+import { HttpService } from './providers/http.service';
 import { HttpClientModule } from '@angular/common/http';
-import { BaseHttpService } from './providers/http.service';
+import { BaseHttpService } from './providers/base.http.service';
 import { Network } from '@ionic-native/network/ngx';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, HttpClientModule , IonicModule.forRoot(), AppRoutingModule],
-providers: [
+  imports: [BrowserModule, HttpClientModule, IonicModule.forRoot(), AppRoutingModule],
+  providers: [
     StatusBar,
     SplashScreen,
-    MoviesService,
+    HttpService,
     BaseHttpService,
     Network,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent]
+  
 })
-export class AppModule {}
+export class AppModule { }
