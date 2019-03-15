@@ -1,19 +1,22 @@
-<ion-row *ngIf="loading" class="loading">
-  <ion-col text-center>
-    <img src="../../../assets/marvel.gif">
-  </ion-col>
-</ion-row>
+<div *ngIf="loading">
+  <app-loading></app-loading>
+</div>
 
-<ion-list>
+<ion-header class="header">
+  <ion-toolbar>
+    <ion-searchbar animated (ionChange)="onChange($event)"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-list class="list">
   <ion-item (click)="onGoToDetails(item.id)" *ngFor="let item of results">
     <ion-thumbnail slot="start">
       <img src="{{item.thumbnail.path}}.{{item.thumbnail.extension}}">
     </ion-thumbnail>
-    <ion-label>{{item.title}}{{item.name}}</ion-label>
+    <ion-label>{{item.title ? item.title : item.name}}</ion-label>
   </ion-item>
 </ion-list>
 <ion-infinite-scroll (ionInfinite)="loadData($event)">
-    <ion-infinite-scroll-content
-      loadingSpinner="dots">
-    </ion-infinite-scroll-content>
+  <ion-infinite-scroll-content loadingSpinner="dots">
+  </ion-infinite-scroll-content>
 </ion-infinite-scroll>

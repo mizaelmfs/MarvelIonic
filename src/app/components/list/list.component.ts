@@ -20,11 +20,15 @@ export class ListComponent implements OnInit {
   private onData: Subscription;
 
   public results = [];
-  private page = 1;
+  private page = 0;
+  private keys: string
   private total: number;
-  public loading = true;
 
-  constructor (private httpService: HttpService
+  // flags
+  public loading = true;
+  private flagSearch = false;
+ 
+  constructor(private httpService: HttpService
     , private network: Network
     , private alertController: AlertController
     , private router: Router) {
@@ -33,56 +37,116 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
 
-      this.onGetMovies();
+    this.onSeries(undefined);
 
-      this.onDisconnect = this.network.onDisconnect().subscribe(() => {
-        this.presentAlert();
-      });
+    this.onDisconnect = this.network.onDisconnect().subscribe(() => {
+      this.presentAlert();
+    });
 
-       this.onConnect = this.network.onConnect().subscribe(() => {
-         this.onGetMovies();
-       });
+    this.onConnect = this.network.onConnect().subscribe(() => {
+      this.onSeries(undefined);
+    });
+  }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Connection',
+      subHeader: 'Not Connection',
+      message: 'Plase, connect internet.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  ionViewWillLeave() {
+    this.onData.unsubscribe();
+    this.onConnect.unsubscribe();
+    this.onDisconnect.unsubscribe();
+  }
+
+  public loadData(event: any) {
+    this.page = this.page +1;
+
+    if (this.results.length === this.total) {
+      event.target.disabled = true;
+      return;
     }
 
-    async presentAlert() {
-      const alert = await this.alertController.create({
-        header: 'Connection',
-        subHeader: 'Not Connection',
-        message: 'Plase, connect internet.',
-        buttons: ['OK']
-      });
-  
-      await alert.present();
+    this.onSeries(event);
+  }
+
+  private onSeries(event: any) {
+    
+    if ( this.flagSearch ) {
+      this.url == 'characters' ? this.onGetSeriesByName(event) : this.onGetSeriesByTitle(event);
+      return;
     }
 
-    ionViewWillLeave() {
-      this.onData.unsubscribe();
-      this.onConnect.unsubscribe();
-      this.onDisconnect.unsubscribe();
-    }
+    this.onGetSeries(event);
+  }
 
-    public loadData(event: any) {
-      this.page += this.page;
-      this.onGetMovies();
-      event.target.complete();
+  private onGetSeries(event: any): void {
 
-      if (this.results.length === this.total) {
-        event.target.disabled = true;
-      }
-    }
+    this.onData = this.httpService.get( this.url, this.page).pipe(
+      map(data => {
+        this.total = data.total;
+        this.results = this.results.concat(data.results);
+        this.loading = false;
 
-    public onGetMovies() {
-      this.onData = this.httpService.get(`${this.url}?offset=${this.page}&`).pipe (
-        map( data => {
-          this.total = data.total;
-          this.results = this.results.concat(  data.results );
-          this.loading = !this.loading;
+        if (event) {
+          event.target.complete();
+        }
+
       })
-      ).subscribe();
-    }
+    ).subscribe();
+  }
 
-    public onGoToDetails(id: number): void {
-      this.router.navigate([`details/${this.url}/${id}`]);
+  public onChange(event: any): void {
+    this.results = [];
+    this.page = 0;
+
+    if ( event.detail.value ) {
+      this.keys = event.detail.value;
+      this.flagSearch = true;
+      this.onSeries(undefined);
+    } else {
+      this.flagSearch = false;
+      this.onSeries(undefined);
     }
+    this.loading = true;
+  }
+
+  private onGetSeriesByName(event: any): void {
+    this.onData = this.httpService.getByName( this.url, this.keys, this.page ).pipe(
+      map(data => {
+        this.total = data.total;
+        this.results = this.results.concat(data.results);
+        this.loading = false;
+
+        if (event) {
+          event.target.complete();
+        }
+      })
+    ).subscribe();
+  }
+
+  private onGetSeriesByTitle(event: any): void {
+    this.onData = this.httpService.getByTitle( this.url, this.keys, this.page ).pipe(
+      map(data => {
+        this.total = data.total;
+        this.results = this.results.concat(data.results);
+        this.loading = false;
+
+        if (event) {
+          event.target.complete();
+        }
+      })
+    ).subscribe();
+  }
+
+  public onGoToDetails(id: number): void {
+    this.router.navigate([`details/${this.url}/${id}`]);
+  }
 
 }

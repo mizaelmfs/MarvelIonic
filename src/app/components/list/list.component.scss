@@ -1,5 +1,8 @@
-.loading {
-    height: 70vh !important;
-    width: auto !important;
-    align-items: center;
+.header {
+    position: fixed;
+    top: 0;
+}
+
+.list {
+    margin-top: 60px;
 }

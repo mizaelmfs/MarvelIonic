@@ -4,14 +4,14 @@
     </ion-col>
 </ion-row>
 
-<ion-card *ngFor="let item of results" >
+<ion-card *ngFor="let item of results">
     <ion-card-header>
         <img src="{{item.thumbnail.path}}.{{item.thumbnail.extension}}">
         <ion-card-subtitle>{{item.startYear}} - {{item.endYear}}</ion-card-subtitle>
         <ion-card-title>{{item.title}}{{item.name}}</ion-card-title>
     </ion-card-header>
-  
+
     <ion-card-content>
-      {{item.description}}
+        {{item.description}}
     </ion-card-content>
-  </ion-card>
+</ion-card>

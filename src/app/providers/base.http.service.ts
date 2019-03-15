@@ -16,6 +16,7 @@ export class BaseHttpService {
     }
 
     public get<T>(url: String): Observable<T> {
+        console.log(`${environment.API}${url}ts=${this.timeStamp}&apikey=${this.keyPublic}&hash=${this.hash()}`);
         return this.http.get<T>(`${environment.API}${url}ts=${this.timeStamp}&apikey=${this.keyPublic}&hash=${this.hash()}`);
     }
 

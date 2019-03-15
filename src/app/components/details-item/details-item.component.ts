@@ -19,7 +19,7 @@ export class DetailsItemComponent implements OnInit {
   constructor(private httpService: HttpService) { }
 
   ngOnInit() {
-    this.onData = this.httpService.get(this.url).pipe(
+    this.onData = this.httpService.getId(this.url).pipe(
       map(data => {
         this.results = data.results;
         this.loading = !this.loading;

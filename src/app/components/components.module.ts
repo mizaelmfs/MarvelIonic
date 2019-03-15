@@ -3,14 +3,15 @@ import { ListComponent } from './list/list.component';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { DetailsItemComponent } from './details-item/details-item.component';
+import { LoadingComponent } from './loading/loading.component';
 
 @NgModule({
     imports: [
-        IonicModule,
+    IonicModule,
         CommonModule
     ],
-    exports: [ListComponent, DetailsItemComponent],
-    declarations: [ListComponent, DetailsItemComponent],
+    exports: [ListComponent, DetailsItemComponent, LoadingComponent],
+    declarations: [ListComponent, DetailsItemComponent, LoadingComponent],
     providers: [],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
