@@ -5,6 +5,7 @@ import { HttpService } from 'src/app/providers/http.service';
 import { map } from 'rxjs/operators';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import Data from 'src/app/modals/results.modal';
 
 @Component({
   selector: 'app-list',
@@ -13,21 +14,21 @@ import { Router } from '@angular/router';
 })
 export class ListComponent implements OnInit {
 
-  @Input() url: string;
+  @Input() path: string;
 
   private onConnect: Subscription;
   private onDisconnect: Subscription;
   private onData: Subscription;
 
+  public data: Data;
   public results = [];
   private page = 0;
-  private keys: string
-  private total: number;
+  private keys: string;
 
   // flags
   public loading = true;
   private flagSearch = false;
- 
+
   constructor(private httpService: HttpService
     , private network: Network
     , private alertController: AlertController
@@ -66,9 +67,9 @@ export class ListComponent implements OnInit {
   }
 
   public loadData(event: any) {
-    this.page = this.page +1;
+    this.page = this.page + this.data.limit;
 
-    if (this.results.length === this.total) {
+    if (this.results.length === this.data.total) {
       event.target.disabled = true;
       return;
     }
@@ -77,9 +78,9 @@ export class ListComponent implements OnInit {
   }
 
   private onSeries(event: any) {
-    
+
     if ( this.flagSearch ) {
-      this.url == 'characters' ? this.onGetSeriesByName(event) : this.onGetSeriesByTitle(event);
+      this.path === 'characters' ? this.onGetSeriesByName(event) : this.onGetSeriesByTitle(event);
       return;
     }
 
@@ -88,16 +89,12 @@ export class ListComponent implements OnInit {
 
   private onGetSeries(event: any): void {
 
-    this.onData = this.httpService.get( this.url, this.page).pipe(
+    this.onData = this.httpService.get( this.path, this.page).pipe(
       map(data => {
-        this.total = data.total;
-        this.results = this.results.concat(data.results);
-        this.loading = false;
-
+        this.setData(data);
         if (event) {
           event.target.complete();
         }
-
       })
     ).subscribe();
   }
@@ -118,12 +115,9 @@ export class ListComponent implements OnInit {
   }
 
   private onGetSeriesByName(event: any): void {
-    this.onData = this.httpService.getByName( this.url, this.keys, this.page ).pipe(
+    this.onData = this.httpService.getByName( this.path, this.keys, this.page ).pipe(
       map(data => {
-        this.total = data.total;
-        this.results = this.results.concat(data.results);
-        this.loading = false;
-
+        this.setData(data);
         if (event) {
           event.target.complete();
         }
@@ -132,12 +126,9 @@ export class ListComponent implements OnInit {
   }
 
   private onGetSeriesByTitle(event: any): void {
-    this.onData = this.httpService.getByTitle( this.url, this.keys, this.page ).pipe(
+    this.onData = this.httpService.getByTitle( this.path, this.keys, this.page ).pipe(
       map(data => {
-        this.total = data.total;
-        this.results = this.results.concat(data.results);
-        this.loading = false;
-
+        this.setData(data);
         if (event) {
           event.target.complete();
         }
@@ -145,8 +136,15 @@ export class ListComponent implements OnInit {
     ).subscribe();
   }
 
+  private setData(data: Data) {
+    this.data = data;
+    this.results = this.results.concat(data.results);
+    this.loading = false;
+    console.log(data);
+  }
+
   public onGoToDetails(id: number): void {
-    this.router.navigate([`details/${this.url}/${id}`]);
+    this.router.navigate([`details/${this.path}/${id}`]);
   }
 
 }

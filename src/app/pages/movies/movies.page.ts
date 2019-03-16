@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['movies.page.scss']
 })
 export class MoviesPage {
-  
+
   constructor () {
 
   }

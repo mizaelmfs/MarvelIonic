@@ -10,16 +10,18 @@ export class DetailsPage implements OnInit {
 
   private path: string;
   private id: string;
-  public url: string
+  public url: string;
 
   constructor (private router: ActivatedRoute) {
 
   }
 
   ngOnInit() {
-    this.router.params.subscribe(res =>{
-      this.path = res['path']
-      this.id = res['id']});
+    this.router.params.subscribe(res => {
+      this.path = res['path'];
+      this.id = res['id'];
+    });
+
       this.url = `${this.path}/${this.id}?`;
   }
 

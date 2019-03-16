@@ -15,7 +15,7 @@ export class DetailsItemComponent implements OnInit {
   private onData: Subscription;
   public results = [];
   public loading = true;
-  
+
   constructor(private httpService: HttpService) { }
 
   ngOnInit() {
@@ -27,6 +27,7 @@ export class DetailsItemComponent implements OnInit {
     ).subscribe();
   }
 
+  // tslint:disable-next-line:use-life-cycle-interface
   ngOnDestroy() {
     this.onData.unsubscribe();
   }

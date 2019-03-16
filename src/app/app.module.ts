@@ -27,6 +27,6 @@ import { Network } from '@ionic-native/network/ngx';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent]
-  
+
 })
 export class AppModule { }

@@ -1,8 +1,8 @@
-export default class Results {
+export default class Data {
     constructor(
         public count: number,
         public limit: number,
-        public results: [],
+        public results: any[],
         public total: number
-    ){}
+    ) {}
 }
