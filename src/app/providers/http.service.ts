@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BaseHttpService } from './base.http.service';
 import { map } from 'rxjs/operators';
-import Data from '../modals/results.modal';
+import Data from '../modals/data.modal';
 
 @Injectable()
 export class HttpService {

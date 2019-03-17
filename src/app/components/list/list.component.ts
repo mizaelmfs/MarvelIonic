@@ -5,7 +5,7 @@ import { HttpService } from 'src/app/providers/http.service';
 import { map } from 'rxjs/operators';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import Data from 'src/app/modals/results.modal';
+import Data from 'src/app/modals/data.modal';
 
 @Component({
   selector: 'app-list',
