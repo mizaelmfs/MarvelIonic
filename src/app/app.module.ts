@@ -13,6 +13,7 @@ import { HttpService } from './providers/http.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BaseHttpService } from './providers/base.http.service';
 import { Network } from '@ionic-native/network/ngx';
+import { TransactionPageService } from './providers/transaction.page.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +25,7 @@ import { Network } from '@ionic-native/network/ngx';
     HttpService,
     BaseHttpService,
     Network,
+    TransactionPageService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent]

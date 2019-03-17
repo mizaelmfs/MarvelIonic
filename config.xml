@@ -84,5 +84,6 @@
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <allow-navigation href="http://10.3.220.177:8100" sessionid="4db2ee1d" />
     <plugin name="cordova-plugin-network-information" spec="2.0.1" />
-    <engine name="android" spec="~7.1.4" />
+    <plugin name="com.telerik.plugins.nativepagetransitions" spec="0.6.5" />
+    <engine name="android" spec="7.1.4" />
 </widget>

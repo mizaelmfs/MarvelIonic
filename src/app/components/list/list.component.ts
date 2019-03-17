@@ -1,3 +1,4 @@
+import { TransactionPageService } from './../../providers/transaction.page.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Network } from '@ionic-native/network/ngx';
@@ -32,7 +33,8 @@ export class ListComponent implements OnInit {
   constructor(private httpService: HttpService
     , private network: Network
     , private alertController: AlertController
-    , private router: Router) {
+    , private router: Router
+    , private transactionPage: TransactionPageService ) {
 
   }
 
@@ -144,6 +146,8 @@ export class ListComponent implements OnInit {
   }
 
   public onGoToDetails(id: number): void {
+
+    this.transactionPage.upTransaction();
     this.router.navigate([`details/${this.path}/${id}`]);
   }
 
