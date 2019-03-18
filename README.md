@@ -5,4 +5,5 @@
 - [x] API Marvel
 - [x] Search
 - [x] Verificar-se tem conexão com internet
+- [x] Internacionalização
 - [x] Salva em cache
