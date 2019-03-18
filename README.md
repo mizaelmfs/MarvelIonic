@@ -4,4 +4,4 @@
 - [x] Ionic 4
 - [x] API Marvel
 - [x] Verificar-se tem conexão com internet
-- [x] Salve em cache
+- [x] Salva em cache
