@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import Data from 'src/app/modals/data.modal';
 import { ToastController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-list',
@@ -16,6 +17,7 @@ import { ToastController } from '@ionic/angular';
 export class ListComponent implements OnInit {
 
   @Input() path: string;
+  public search = this.translateService.instant("search")
 
   private onConnect: Subscription;
   private onDisconnect: Subscription;
@@ -34,7 +36,8 @@ export class ListComponent implements OnInit {
     , private network: Network
     , private router: Router
     , private transactionPage: TransactionPageService
-    , private toastController: ToastController) {
+    , private toastController: ToastController
+    , private translateService: TranslateService) {
 
   }
 
@@ -53,7 +56,7 @@ export class ListComponent implements OnInit {
 
   async presentToast() {
     const toast = await this.toastController.create({
-      message: 'Plase, connect to an internet...',
+      message: this.translateService.instant("not-connection"),
       duration: 4000
     });
     toast.present();

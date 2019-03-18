@@ -1,8 +1,6 @@
-<ion-row *ngIf="loading" class="loading">
-    <ion-col text-center>
-        <img src="../../../assets/marvel.gif">
-    </ion-col>
-</ion-row>
+<div *ngIf="loading">
+    <app-loading></app-loading>
+</div>
 
 <ion-card *ngFor="let item of results">
     <ion-card-header>

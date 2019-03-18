@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
 const routes: Routes = [
   {
@@ -50,8 +51,9 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    TranslateModule
   ],
-  exports: [RouterModule]
+  exports: [RouterModule, TranslateModule]
 })
 export class TabsPageRoutingModule {}
