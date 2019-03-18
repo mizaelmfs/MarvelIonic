@@ -14,11 +14,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { BaseHttpService } from './providers/base.http.service';
 import { Network } from '@ionic-native/network/ngx';
 import { TransactionPageService } from './providers/transaction.page.service';
+import { CacheModule } from 'ionic-cache';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, HttpClientModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [BrowserModule, HttpClientModule, CacheModule.forRoot(), IonicModule.forRoot(), AppRoutingModule],
   providers: [
     StatusBar,
     SplashScreen,

@@ -12,7 +12,7 @@ export class HttpService {
 
     public get(path: string, page: number): Observable<Data> {
         return this.http.get<any>(`${path}?offset=${page}&`).pipe(
-            map( response => response.data )
+            map( response => response.data)
         );
     }
 

@@ -4,9 +4,9 @@ import { Subscription } from 'rxjs';
 import { Network } from '@ionic-native/network/ngx';
 import { HttpService } from 'src/app/providers/http.service';
 import { map } from 'rxjs/operators';
-import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import Data from 'src/app/modals/data.modal';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-list',
@@ -32,9 +32,9 @@ export class ListComponent implements OnInit {
 
   constructor(private httpService: HttpService
     , private network: Network
-    , private alertController: AlertController
     , private router: Router
-    , private transactionPage: TransactionPageService ) {
+    , private transactionPage: TransactionPageService
+    , private toastController: ToastController) {
 
   }
 
@@ -43,7 +43,7 @@ export class ListComponent implements OnInit {
     this.onSeries(undefined);
 
     this.onDisconnect = this.network.onDisconnect().subscribe(() => {
-      this.presentAlert();
+      this.presentToast();
     });
 
     this.onConnect = this.network.onConnect().subscribe(() => {
@@ -51,15 +51,12 @@ export class ListComponent implements OnInit {
     });
   }
 
-  async presentAlert() {
-    const alert = await this.alertController.create({
-      header: 'Connection',
-      subHeader: 'Not Connection',
-      message: 'Plase, connect internet.',
-      buttons: ['OK']
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Plase, connect to an internet...',
+      duration: 4000
     });
-
-    await alert.present();
+    toast.present();
   }
 
   ionViewWillLeave() {
@@ -142,7 +139,6 @@ export class ListComponent implements OnInit {
     this.data = data;
     this.results = this.results.concat(data.results);
     this.loading = false;
-    console.log(data);
   }
 
   public onGoToDetails(id: number): void {
